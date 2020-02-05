@@ -1,0 +1,33 @@
+---
+title: "class day 2"
+author: "Alexandra Norris"
+date: "2/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+library(babynames)
+library(stringr)
+```
+
+```{r}
+# first letter is a vowel
+
+babynames %>%
+  filter(sex == "F") %>%
+  mutate(start_with_a = ifelse(str_detect(name, "^A|^E|^I|^O|^U"), TRUE, FALSE)) %>%
+  group_by(year, start_with_a) %>%
+  summarise(prop_A = sum(prop),
+            sum_A = sum(n))
+
+# 
+# babynames %>%
+#   filter(substring(name, 1,1) %in% c("a", "e", "i", "o", "u")) %>%
+#   group_by(year) %>%
+#   summarise(year_prop = sum(prop))
+  
+```
+
